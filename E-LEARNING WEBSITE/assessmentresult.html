@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Assessment Result</title>
+</head>
+<body>
+    <header>
+        <h1>Assessment Result</h1>
+    </header>
+    <main>
+        <section id="result">
+            <h2>Thank You for Completing the Assessment!</h2>
+            <div class="score">
+                <p>Your Score: <span id="score">0</span> out of 2</p>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 E-learning Platform. All rights reserved.</p>
+        <p>sivananthan46m@gmail.com</p>
+    </footer>
+     <script>const urlParams = new URLSearchParams(window.location.search);
+        const score = urlParams.get("score");
+
+        const scoreElement = document.getElementById("score");
+        scoreElement.textContent = score;</script>
+
+    <script src="script.js"></script>
+</body>
+</html>
