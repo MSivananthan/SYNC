@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>E-learning Platform</title>
+</head>
+<body>
+    <header>
+        <h1>E-learning Website</h1>
+    </header>
+    <main>
+        <section id="signup">
+            <h2>Sign Up Online</h2>
+            <!-- Signup form -->
+            <form>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+
+                <button type="submit">Sign Up</button>
+            </form>
+        </section>
+
+        <section id="upload">
+            <h2>Facility of Uploading Documents Online</h2>
+            <!-- Document upload form -->
+            <form>
+                <input type="file" id="document" name="document" accept=".pdf, .doc, .docx">
+                <button type="submit">Upload</button>
+            </form>
+        </section>
+
+        <section id="assessments">
+            <h2>Online Assessments</h2>
+            <!-- Assessment questions -->
+            <div class="question">
+                <h3>Question 1</h3>
+                <p>What is the capital of France?</p>
+                <label>
+                    <input type="radio" name="q1" value="paris"> Paris
+                </label>
+                <label>
+                    <input type="radio" name="q1" value="london"> London
+                </label>
+                <label>
+                    <input type="radio" name="q1" value="berlin"> Berlin
+                </label>
+                <label>
+                    <input type="radio" name="q1" value="rome"> Rome
+                </label>
+
+                <h3>Question 2</h3>
+                <p>Who is the present prime minister of INDIA?</p>
+                <label>
+                    <input type="radio" name="q2" value="Naredra Modi"> Naredra Modi
+                </label>
+                <label>
+                    <input type="radio" name="q2" value="Amedsha"> Amedsha
+                </label>
+                <label>
+                    <input type="radio" name="q2" value="Mumtha Benerji"> Mumtha Benerji
+                </label>
+                <label>
+                    <input type="radio" name="q2" value="Nirimala devi Seetha Ramam"> Nirimala devi Seetha Ramam
+                </label>
+
+                <br>
+                <button onclick="submitAssessment()">Submit</button>
+            </div>
+        </section>
+
+        <!-- Add more sections for other features here -->
+
+    </main>
+    <footer>
+        <p>&copy; 2023 E-learning Platform. All rights reserved.
+            <br>sivananthan46m@gmail.com
+        </p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
