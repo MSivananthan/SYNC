@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>MUSIC PLAYER</title>
+</head>
+<body>
+    <main class="player">
+        <div class="header">
+            <a href="#" class="button">
+                <i class="fas fa-bars" aria-hidden="true"></i>
+                <span class="sr-only">menu bar</span>
+            </a>
+            <p>Now Playing</p>
+            <a href="#" class="button">
+                <i class="fas fa-search" aria-hidden="true"></i>
+                <span class="sr-only">Search</span>
+            </a>
+        </div><!--  header  -->
+        <img src="R.jpg" alt="album art" class="art" id="album-art"><!--  art  -->
+        
+        <div class="info">
+            <h1>MELODIES</h1>
+            <p>SIVA</p>
+        </div><!--  info  -->
+        <div class="prog">
+            <div class="prog-time">
+                <p class="left">0:00</p>
+                <p class="right">2:06</p>
+            </div>
+            <div class="prog-bar">
+                <div class="prog-bar-inner"></div>
+            </div>
+        </div><!--  progress  -->
+        <ul class="buttons">
+            <a href="#" class="button button-sm">
+                <i class="fas fa-random fa-sm" aria-hidden="true"></i>
+                <span class="sr-only">Shuffle</span>
+            </a>
+            <a href="#" class="button button-md" id="prev-button">
+                <i class="fas fa-step-backward" aria-hidden="true"></i>
+                <span class="sr-only">Previous Music</span>
+            </a>
+            <a href="#" class="button button-lg" id="play-button">
+                <i class="fas fa-play fa-lg" aria-hidden="true"></i>
+                <span class="sr-only">Play</span>
+            </a>
+            <a href="#" class="button button-md" id="next-button">
+                <i class="fas fa-step-forward"></i>
+                <span class="sr-only">Next Music</span>
+            </a>
+            <a href="#" class="button button-sm">
+                <i class="fas fa-circle-notch fa-sm" aria-hidden="true"></i>
+                <span class="sr-only">Repeat Song</span>
+            </a>
+        </ul><!--  buttons  -->
+        <div class="bar"></div><!--  bar  -->
+    </main>
+
+    <section class="credit">
+        MUSIC APP <a href="https://dribbble.com/shots/9168665-Neumorphism-Music-App"></a>SIVANANTHAN
+        Built by <a href="https://twitter.com/TutulDevs">(sivananthan46m@gmail.com)</a>.
+    </section>
+
+    <script src="https://kit.fontawesome.com/7d35781f0a.js" crossorigin="anonymous"></script> 
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+
+    <!-- Audio Element with Music Source -->
+    <audio class="music-player">
+        <source src="Nee Paartha-cut.mp3" type="audio/mpeg">
+        <source src="Nee attam potta - Baby Nee Sugar ! Tamil.mp3" type="OIP.jpg">
+        <source src="Vijay Song - Tamil.mp3" type="concert-poster-design-with-guitar-vector-illustration.jpg">
+        <source src="ponniyin_selvan_part_two.jpg" type="concert-poster-design-with-guitar-vector-illustration.jpg">
+        <!-- Add more tracks here -->
+    </audio>
+
+    <script>
+        // JavaScript to control the music player
+        const musicPlayer = document.querySelector(".music-player");
+        const playButton = document.getElementById("play-button");
+        const nextButton = document.getElementById("next-button");
+        const prevButton = document.getElementById("prev-button");
+        const progressBar = document.querySelector(".prog-bar-inner");
+        const currentTimeDisplay = document.querySelector(".prog-time .left");
+        const totalTimeDisplay = document.querySelector(".prog-time .right");
+        const albumArt = document.getElementById("album-art");
+
+        let isPlaying = false;
+        let currentTrack = 0;
+
+        // List of music tracks
+        const tracks = [
+            {
+                title: "Nee Paartha",
+                artist: "Harris Jayaraj",
+                source: "Nee Paartha-cut.mp3",
+                duration: 30,
+                image: "R.jpg"
+            },
+            {
+                title: "Nee attam Potta",
+                artist: "YUVAN",
+                source: "Nee attam potta - Baby Nee Sugar ! Tamil.mp3",
+                duration: 30,
+                image: "OIP.jpg"
+            },
+            {
+                title: "PONNIYAN SELVAN 2",
+                artist: "A R RAHUMAN",
+                source: "Devarala Attam - PS1 ! Tamil.mp3",
+                duration: 30,
+                image: "ponniyin_selvan_part_two.jpg"
+            },
+            {
+                title: "VIJAY SONG",
+                artist: "YUVAN",
+                source: "Vijay Song - Tamil.mp3",
+                duration: 30,
+                image: "concert-poster-design-with-guitar-vector-illustration.jpg"
+            },
+           
+        ];
+
+        // Function to update time format for the total duration
+        function updateTotalTimeDisplay() {
+            const totalTime = tracks[currentTrack].duration;
+            totalTimeDisplay.textContent = formatTime(totalTime);
+        }
+
+        // Set the total duration of the audio once it's loaded
+        musicPlayer.addEventListener("loadedmetadata", updateTotalTimeDisplay);
+
+        // Play or pause the audio when the play button is clicked
+        playButton.addEventListener("click", () => {
+            if (isPlaying) {
+                musicPlayer.pause();
+                isPlaying = false;
+                playButton.innerHTML = '<i class="fas fa-play fa-lg" aria-hidden="true"></i>';
+                playButton.setAttribute("aria-label", "Play");
+            } else {
+                musicPlayer.play();
+                isPlaying = true;
+                playButton.innerHTML = '<i class="fas fa-pause fa-lg" aria-hidden="true"></i>';
+                playButton.setAttribute("aria-label", "Pause");
+            }
+        });
+
+        // Function to update time format for the current time
+        function updateTimeDisplay() {
+            if (isPlaying) {
+                const currentTime = musicPlayer.currentTime;
+                currentTimeDisplay.textContent = formatTime(currentTime);
+            }
+        }
+
+        // Update the progress bar and current time as the audio plays
+        musicPlayer.addEventListener("timeupdate", () => {
+            if (isPlaying) {
+                const currentTime = musicPlayer.currentTime;
+                const totalTime = tracks[currentTrack].duration;
+                progressBar.style.width = `${(currentTime / totalTime) * 100}%`;
+                updateTimeDisplay();
+            }
+        });
+
+        // Function to play the next track
+        function playNextTrack() {
+            currentTrack = (currentTrack + 1) % tracks.length;
+            musicPlayer.src = tracks[currentTrack].source;
+            albumArt.src = tracks[currentTrack].image; // Update album art image
+            updateTotalTimeDisplay();
+            musicPlayer.play();
+        }
+
+        // Function to play the previous track
+        function playPrevTrack() {
+            currentTrack = (currentTrack - 1 + tracks.length) % tracks.length;
+            musicPlayer.src = tracks[currentTrack].source;
+            albumArt.src = tracks[currentTrack].image; // Update album art image
+            updateTotalTimeDisplay();
+            musicPlayer.play();
+        }
+
+        // Next Music button click event
+        nextButton.addEventListener("click", () => {
+            playNextTrack();
+        });
+
+        // Previous Music button click event
+        prevButton.addEventListener("click", () => {
+            playPrevTrack();
+        });
+
+        // Format time in seconds to MM:SS format
+        function formatTime(timeInSeconds) {
+            const minutes = Math.floor(timeInSeconds / 60);
+            const seconds = Math.floor(timeInSeconds % 60);
+            return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+        }
+    </script>
+</body>
+</html>
